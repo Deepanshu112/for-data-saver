@@ -1,23 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
 
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  function Submit(e) {
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
+    fetch(
+      "your Google sheet Link",
+      {
+        method: "POST",
+        body: formDatab
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  return  (
+    <div className="App" onSubmit={(e) => Submit(e)}>
+      <h1>Registration form</h1>
+
+      <div>
+        <form className="form">
+          <input placeholder="Your Name" name="Name" type="text" />
+          <input placeholder="Your Email" name="Email" type="text" />
+          <input placeholder="Your Phone Number" name="Number" type="text" />
+          <input name="Name" type="submit" />
+        </form>
+      </div>
+      
     </div>
   );
 }
